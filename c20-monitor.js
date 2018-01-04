@@ -43,8 +43,7 @@ setInterval(printDeltaSinceStart, CHANGE_INTERVAL);
 updateValue();
 
 process.on('SIGINT', function() {
-  printDeltaSinceStart();
-  process.exit();
+  doExit();
 });
 
 // Add support for exiting with ESC
@@ -53,9 +52,15 @@ readline.emitKeypressEvents(process.stdin);
 process.stdin.setRawMode(true);
 process.stdin.on('keypress', (str, key) => {
   if ((key.ctrl && key.name === 'c') || key.name === 'escape') {
-    process.exit();
+    doExit();
   }
 });
+
+function doExit() {
+  printDeltaSinceStart();
+  console.log(colors.dim('Created by mikko.tormala@gmail.com. Send ETH/C20 to: 0xb9E4c0819083fD8AC91FbD5694f7E3139539E412'));
+  process.exit();
+}
 
 /*
  * Methods
