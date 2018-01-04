@@ -58,7 +58,7 @@ process.stdin.on('keypress', (str, key) => {
 
 function doExit() {
   printDeltaSinceStart();
-  console.log(colors.dim('Created by mikko.tormala@gmail.com. Send ETH/C20 to: 0xb9E4c0819083fD8AC91FbD5694f7E3139539E412'));
+  console.log(colors.dim('Email feature requests to mikko.tormala@gmail.com. Send ETH/C20 to: 0xb9E4c0819083fD8AC91FbD5694f7E3139539E412'));
   process.exit();
 }
 
