@@ -33,8 +33,8 @@ Example:
 ```javascript
 {
   "stake": 15000.2501,
-  "updateInterval": 120000,
-  "changeInterval": 36000000
+  "updateInterval": 120,
+  "changeInterval": 3600
 }
 ```
 

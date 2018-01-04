@@ -21,14 +21,14 @@ const config = fs.existsSync('./config.json')
   ? require('./config.json') 
   : {
     stake: 10000,
-    updateInterval: 120000,
-    changeInterval: 3600000
+    updateInterval: 120,
+    changeInterval: 3600
   };
 const storedData = argv.stake ? null : (fs.existsSync('./data.json') ? require('./data.json') : null);
 
 const USER_STAKE = argv._[0] || argv.stake || config.stake; 
-const REFRESH_TIME = (argv._[1] * 1000) || (argv.time*1000) || config.updateInterval;
-const CHANGE_INTERVAL = (argv._[2] * 1000) || (argv.change*1000) || config.changeInterval;
+const REFRESH_TIME = (argv._[1] * 1000) || (argv.time*1000) || (config.updateInterval*1000);
+const CHANGE_INTERVAL = (argv._[2] * 1000) || (argv.change*1000) || (config.changeInterval*1000);
 
 /*
  * Init
