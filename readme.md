@@ -39,9 +39,9 @@ Example:
 ```
 
 ## Stored data
-Each time the app refreshes the data from C20 servers, it stores the NAV, C20 Fund size, and the timetamp into a separate `data.json` file.
+Each time the app refreshes the data from C20 servers, it stores the NAV, C20 Fund size, and a timestamp into a separate `data.json` file.
 
-Starting the app with this file in the same folder will print out the changes since that saved date.
+Starting the app with this file in the same folder will print out the changes since the last saved state.
 
 ## Note from dev:
 Thanks for the C20 team for delivering an amazing product!
