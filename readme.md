@@ -1,6 +1,8 @@
 # C20 Monitor
 C20 Monitor is a command-line interface app that monitors the C20 Crypto index fund and print out changes to the token value, fund size, and individual stake.
 
+On set intervals, the app will print out the change since the last interval, making it easier to see overall movement.
+
 On exit, the app will print out the changes to the NAV, Fund, and Stake size since the start of the app.
 
 ![screenshot](screenshot.png "C20 Monitor in use")

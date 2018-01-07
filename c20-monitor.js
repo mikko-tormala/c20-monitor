@@ -16,6 +16,8 @@ let startNAV = 0;
 let startFund = 0;
 let lastNAV = 0;
 let lastFund = 0;
+let checkNAV = 0;
+let checkFund = 0;
 
 const config = fs.existsSync('./config.json') 
   ? require('./config.json') 
@@ -39,7 +41,7 @@ Stake size: ${bold(USER_STAKE)} C20.
 Refresh C20 value every: ${bold(humanizeTime(REFRESH_TIME))}. 
 Show changes since start every: ${bold(humanizeTime(CHANGE_INTERVAL))}.`);
 
-setInterval(printDeltaSinceStart, CHANGE_INTERVAL);
+setInterval(printDelta, CHANGE_INTERVAL, checkNAV, checkFund);
 updateValue();
 
 process.on('SIGINT', function() {
@@ -57,7 +59,7 @@ process.stdin.on('keypress', (str, key) => {
 });
 
 function doExit() {
-  printDeltaSinceStart();
+  printDelta(startNAV, startFund);
   console.log(colors.dim('Email feature requests to mikko.tormala@gmail.com. Send ETH/C20 to: 0xb9E4c0819083fD8AC91FbD5694f7E3139539E412'));
   process.exit();
 }
@@ -112,7 +114,7 @@ function printValue(data) {
       startNAV = storedData.nav;
       startFund = storedData.fund;
       startTime = storedData.time;
-      printDeltaSinceStart(true);
+      printDelta(startNAV, startFund, true);
     }
     
     // First run. Store starting values.
@@ -128,15 +130,15 @@ function printValue(data) {
   })
 }
 
-function printDeltaSinceStart(isRestart) {
-  if (startTime == 0) return;
-  let startStr = isRestart ? 'last saved data' : 'start';
-  
+function printDelta(nav, fund, isRestart) {
+  if (startTime == 0 || nav == lastNAV) return;
+  let startStr = isRestart ? 'last run' : 'last checkpoint';
+
   let value = lastNAV * USER_STAKE;
-  let positiveChange = lastNAV > startNAV;
-  let deltaNAV = format( Math.abs(lastNAV-startNAV), 4);
-  let deltaValue = format( Math.abs(value-(startNAV * USER_STAKE)), 0);
-  let deltaFund = format(Math.abs(lastFund - startFund), 0);
+  let positiveChange = lastNAV > nav;
+  let deltaNAV = format( Math.abs(lastNAV-nav), 4);
+  let deltaValue = format( Math.abs(value-(nav * USER_STAKE)), 0);
+  let deltaFund = format(Math.abs(lastFund - fund), 0);
   let deltaTime = bold(humanize.relativeTime(startTime));
 
   let cDeltaNAV = positiveChange ? green(`+$${deltaNAV}`) : red(`-$${deltaNAV}`)
